@@ -6,4 +6,116 @@
 	android:layout_height="match_parent"
 	tools:context=".CreateContact">
 
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:orientation="vertical">
+
+		<ScrollView
+			android:id="@+id/scrollNewContact"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:scrollbarStyle="insideOverlay"
+			app:layout_constraintEnd_toEndOf="parent"
+			tools:layout_editor_absoluteY="0dp">
+
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical">
+
+				<ImageView
+					android:id="@+id/userImage"
+					android:layout_width="match_parent"
+					android:layout_height="500dp"
+					android:background="@android:color/darker_gray"
+					android:contentDescription="@string/picture"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toTopOf="parent"
+					app:srcCompat="@drawable/ic_perm_identity_white_150dp" />
+
+				<TextView
+					android:id="@+id/nameLabel"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginEnd="8dp"
+					android:layout_marginStart="8dp"
+					android:layout_marginTop="8dp"
+					android:text="@string/name"
+					android:textSize="18sp"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintHorizontal_bias="0.0"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/userImage" />
+
+				<EditText
+					android:id="@+id/nameInput"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginEnd="8dp"
+					android:layout_marginStart="8dp"
+					android:layout_marginTop="16dp"
+					android:ems="10"
+					android:hint="@string/name"
+					android:inputType="textPersonName"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintHorizontal_bias="0.0"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/nameLabel" />
+
+				<TextView
+					android:id="@+id/phoneLabel"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginEnd="8dp"
+					android:layout_marginStart="8dp"
+					android:layout_marginTop="16dp"
+					android:text="@string/phone"
+					android:textSize="18sp"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintHorizontal_bias="0.0"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/nameInput" />
+
+				<EditText
+					android:id="@+id/phoneInput"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginEnd="8dp"
+					android:layout_marginStart="8dp"
+					android:layout_marginTop="16dp"
+					android:ems="10"
+					android:hint="@string/phone"
+					android:inputType="phone"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintHorizontal_bias="1.0"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/phoneLabel" />
+
+				<Button
+					android:id="@+id/saveContact"
+					style="@style/Widget.AppCompat.Button.Colored"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginEnd="8dp"
+					android:layout_marginStart="8dp"
+					android:layout_marginTop="16dp"
+					android:layout_marginBottom="32dp"
+					android:background="@color/colorPrimaryDark"
+					android:text="@string/save_contact"
+					android:textAlignment="center"
+					android:textAllCaps="false"
+					android:textColor="@android:color/white"
+					android:textSize="18sp"
+					android:textStyle="bold"
+					app:layout_constraintEnd_toEndOf="parent"
+					app:layout_constraintStart_toStartOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/phoneInput" />
+			</LinearLayout>
+		</ScrollView>
+	</LinearLayout>
+
+
+
 </android.support.constraint.ConstraintLayout>

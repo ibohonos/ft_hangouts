@@ -2,4 +2,9 @@
 <resources>
     <string name="app_name">Ft Hangouts</string>
     <string name="action_settings">Налаштування</string>
+	<string name="add_contact">Створити контакт</string>
+	<string name="name">Ім\'я</string>
+	<string name="phone">Телефон</string>
+	<string name="save_contact">Зберегти контакт</string>
+	<string name="picture">Світлина</string>
 </resources>
