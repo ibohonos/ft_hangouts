@@ -3,13 +3,24 @@ package ua.com.createsites.ft_hangouts
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_create_contact.*
 
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.contact_list.*
+import kotlinx.android.synthetic.main.content_main.*
+import ua.com.createsites.ft_hangouts.Adapter.ListUserAdapter
+import ua.com.createsites.ft_hangouts.DBHelper.DBHelper
+import ua.com.createsites.ft_hangouts.Models.User
 
 class MainActivity : AppCompatActivity() {
+
+	internal lateinit var db: DBHelper
+	internal var listUsers: List<User> = ArrayList<User>()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -17,6 +28,26 @@ class MainActivity : AppCompatActivity() {
 		setSupportActionBar(toolbar)
 
 		addNew.setOnClickListener { view -> newContact(view) }
+
+		db = DBHelper(this)
+
+		refreshData()
+	}
+
+	private fun refreshData() {
+		listUsers = db.allUser
+
+		val adapter = ListUserAdapter(this@MainActivity, listUsers)
+
+		println("list Users: " + listUsers.first().id.toString() + " " + listUsers.first().name  + " " + listUsers.first().phone + " " + listUsers.first().avatar)
+
+		contacts.adapter = adapter
+
+		contacts.setOnItemClickListener(){adapterView, view, position, id ->
+			val itemId = adapterView.getItemIdAtPosition(position)
+			Toast.makeText(this, "Click on position $position its item id $itemId", Toast.LENGTH_LONG).show()
+		}
+//		listUsers.adapter = adapter
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
