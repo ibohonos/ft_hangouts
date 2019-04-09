@@ -1,37 +1,34 @@
 package ua.com.createsites.ft_hangouts.Adapter
 
-import android.app.Activity
-import android.content.Context
-import android.net.Uri
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
 import kotlinx.android.synthetic.main.contact_list.view.*
 import ua.com.createsites.ft_hangouts.Models.User
 import ua.com.createsites.ft_hangouts.R
-import kotlinx.android.synthetic.main.row_layout.view.*
+import android.annotation.SuppressLint
+import android.view.LayoutInflater
+import android.widget.BaseAdapter
+import android.content.Context
+import android.view.ViewGroup
+import android.app.Activity
+import android.view.View
+import android.net.Uri
 
-class ListUserAdapter(internal var activity: Activity,
-					  internal var listUser: List<User>): BaseAdapter() {
+class ListUserAdapter(activity: Activity, private val listUser: List<User>): BaseAdapter() {
 
-	internal var inflater: LayoutInflater
+	private var inflater: LayoutInflater = activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-	init {
-		inflater = activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-	}
-
+	@SuppressLint("ViewHolder", "InflateParams")
 	override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 		val rowView: View  = inflater.inflate(R.layout.contact_list, null)
-
 		val avatarUrl = listUser[position].avatar
 
-		rowView.ava.setImageURI(Uri.parse(avatarUrl.toString()))
-		rowView.name.text = listUser[position].name.toString()
-		rowView.phone.text = listUser[position].phone.toString()
+		if (avatarUrl != "null") {
+			rowView.ava.setImageURI(Uri.parse(avatarUrl))
+		} else {
+			rowView.ava.setImageResource(R.drawable.ic_perm_identity_white_150dp)
+		}
+
+		rowView.name.text = listUser[position].name
+		rowView.phone.text = listUser[position].phone
 
 		return rowView
 	}

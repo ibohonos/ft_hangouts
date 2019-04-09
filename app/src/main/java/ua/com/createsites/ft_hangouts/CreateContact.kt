@@ -1,33 +1,33 @@
 package ua.com.createsites.ft_hangouts
 
-import android.Manifest
-import android.app.Activity
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.os.Build
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
-import android.view.MenuItem
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_create_contact.*
-import android.graphics.Bitmap
-import android.os.Environment.getExternalStorageDirectory
-import android.provider.MediaStore.Images.Media.getBitmap
-import android.graphics.drawable.BitmapDrawable
-import android.os.Environment
 import ua.com.createsites.ft_hangouts.DBHelper.DBHelper
 import ua.com.createsites.ft_hangouts.Models.User
-import java.io.File
+import android.support.v7.app.AppCompatActivity
+import android.graphics.drawable.BitmapDrawable
+import android.content.pm.PackageManager
 import java.io.FileOutputStream
+import android.graphics.Bitmap
+import android.content.Intent
+import android.os.Environment
+import android.view.MenuItem
+import android.app.Activity
+import android.widget.Toast
 import java.io.IOException
+import android.os.Bundle
+import android.Manifest
+import android.os.Build
+import java.io.File
 
 
 class CreateContact : AppCompatActivity() {
 
-	private val IMAGE_PICK_CODE = 1000
-	private val PERMISSION_CODE = 1001
+	companion object {
+		private const val IMAGE_PICK_CODE = 1000
+		private const val PERMISSION_CODE = 1001
+	}
 
-	internal lateinit var db: DBHelper
+	private lateinit var db: DBHelper
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
@@ -38,7 +38,6 @@ class CreateContact : AppCompatActivity() {
 
 		userImage.setOnClickListener { accessReadPermissions() }
 		saveContact.setOnClickListener { accessWritePermissions() }
-//		saveContact.setOnClickListener { saveData() }
 	}
 
 	private fun accessReadPermissions() {
@@ -76,14 +75,13 @@ class CreateContact : AppCompatActivity() {
 	}
 
 	private fun saveData() {
-		val draw = userImage.getDrawable() as? BitmapDrawable
+		val draw = userImage.drawable as? BitmapDrawable
 		var image: String? = null
 
 		if (draw != null) {
 			image = saveImageToStorage(draw)
 		}
 
-		println(image)
 		val user = User(
 				null,
 				nameInput.text.toString(),
@@ -92,22 +90,19 @@ class CreateContact : AppCompatActivity() {
 		)
 
 		db.addUser(user)
-
-		Toast.makeText(this@CreateContact, "Click Me!", Toast.LENGTH_SHORT).show()
+		finish()
 	}
 
 	private fun saveImageToStorage(draw: BitmapDrawable): String {
 		val bitmap = draw.bitmap
 		val outStream: FileOutputStream?
 		val sdCard = Environment.getExternalStorageDirectory()
-		val dir = File(sdCard.getAbsolutePath() + "/ft_hangouts/images")
+		val dir = File(sdCard.absolutePath + "/ft_hangouts/images")
 		var outFile: File? = null
-
-		dir.mkdirs()
-
 		val fileName = String.format("%d.jpg", System.currentTimeMillis())
 
 		try {
+			dir.mkdirs()
 			outFile = File(dir, fileName)
 
 			outStream = FileOutputStream(outFile)
@@ -125,7 +120,11 @@ class CreateContact : AppCompatActivity() {
 		when (requestCode) {
 			PERMISSION_CODE -> {
 				if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-					imageFromGallery()
+					if (permissions[0] == Manifest.permission.READ_EXTERNAL_STORAGE) {
+						imageFromGallery()
+					} else if (permissions[0] == Manifest.permission.WRITE_EXTERNAL_STORAGE) {
+						saveData()
+					}
 				} else {
 					Toast.makeText(this, "Permissions denied", Toast.LENGTH_SHORT).show()
 				}
