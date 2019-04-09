@@ -8,7 +8,6 @@ import ua.com.createsites.ft_hangouts.Models.User
 import android.support.v7.app.AppCompatActivity
 import android.content.Intent
 import android.view.MenuItem
-import android.widget.Toast
 import android.os.Bundle
 import android.view.Menu
 
@@ -36,10 +35,16 @@ class MainActivity : AppCompatActivity() {
 
 		contacts.adapter = adapter
 
-		contacts.setOnItemClickListener { adapterView, _, position, id ->
-			val itemId = adapterView.getItemIdAtPosition(position)
-			Toast.makeText(this, "Click on position $position its item id $itemId and ID $id", Toast.LENGTH_LONG).show()
+		contacts.setOnItemClickListener { _, _, position, _ ->
+			viewContact(position)
 		}
+	}
+
+	private fun viewContact(position: Int) {
+		val win = Intent(this@MainActivity, ContactView::class.java)
+
+		win.putExtra("position", position)
+		startActivity(win)
 	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {

@@ -6,4 +6,7 @@
 	<string name="phone">Phone</string>
 	<string name="save_contact">Save contact</string>
 	<string name="picture">Picture</string>
+	<string name="call">Call</string>
+	<string name="send_sms">Send SMS</string>
+	<string name="profile">Profile</string>
 </resources>

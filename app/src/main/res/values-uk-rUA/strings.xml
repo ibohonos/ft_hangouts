@@ -7,4 +7,7 @@
 	<string name="phone">Телефон</string>
 	<string name="save_contact">Зберегти контакт</string>
 	<string name="picture">Світлина</string>
+	<string name="call">Зателефонувати</string>
+	<string name="send_sms">Відправити СМС</string>
+	<string name="profile">Профіль</string>
 </resources>
