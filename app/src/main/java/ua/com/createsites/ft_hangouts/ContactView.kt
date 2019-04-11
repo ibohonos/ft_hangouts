@@ -1,43 +1,50 @@
 package ua.com.createsites.ft_hangouts
 
-import android.Manifest
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.net.Uri
-import android.os.Build
-import ua.com.createsites.ft_hangouts.DBHelper.DBHelper
-import ua.com.createsites.ft_hangouts.Models.User
-import android.support.v7.app.AppCompatActivity
-import android.view.MenuItem
-import android.os.Bundle
-import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_contact_view.*
+import android.support.v7.app.AppCompatActivity
+import android.content.pm.PackageManager
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.view.MenuItem
+import android.widget.Toast
+import android.os.Bundle
+import android.os.Build
+import android.Manifest
+import android.net.Uri
 
 class ContactView : AppCompatActivity() {
 
 	companion object {
-		private const val IMAGE_PICK_CODE = 1000
-		private const val PERMISSION_CODE = 1001
+		private const val CALL_PHONE_CODE = 1001
+		private const val SMS_CODE = 1002
 	}
 
-	private lateinit var db: DBHelper
-	private var listUsers: List<User> = ArrayList<User>()
-	private var position: Int = 0
-	private var user: User? = null
+	private val perm = arrayOf(
+			Manifest.permission.SEND_SMS,
+			Manifest.permission.READ_SMS,
+			Manifest.permission.RECEIVE_SMS
+	)
+
+	private var id: Int = 0
+	private lateinit var name: String
+	private lateinit var phone: String
+	private var avatar: String? = null
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_contact_view)
 		supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
-		db = DBHelper(this)
-		listUsers = db.allUser
-		position = intent.getIntExtra("position", 0)
-		user = listUsers[position]
+		id = intent.getIntExtra("id", 0)
+		name = intent.getStringExtra("name")
+		phone = intent.getStringExtra("phone")
+		avatar = intent.getStringExtra("avatar")
+		this.title = name
 
-		viewData(user!!)
+		viewData()
 
 		callContact.setOnClickListener { accessCallPermissions() }
+		smsContact.setOnClickListener { accessSMSPermissions() }
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -51,11 +58,17 @@ class ContactView : AppCompatActivity() {
 
 	override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
 		when (requestCode) {
-			PERMISSION_CODE -> {
+			CALL_PHONE_CODE -> {
 				if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-					if (permissions[0] == Manifest.permission.CALL_PHONE) {
-						makeCall(user!!.phone)
-					}
+					makeCall()
+				} else {
+					Toast.makeText(this, "Permissions denied", Toast.LENGTH_SHORT).show()
+				}
+			}
+
+			SMS_CODE -> {
+				if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+					sendSMS()
 				} else {
 					Toast.makeText(this, "Permissions denied", Toast.LENGTH_SHORT).show()
 				}
@@ -63,18 +76,29 @@ class ContactView : AppCompatActivity() {
 		}
 	}
 
-	private fun makeCall(phone: String) {
+	@SuppressLint("MissingPermission")
+	private fun makeCall() {
 		val call = Intent(Intent.ACTION_CALL, Uri.parse("tel:$phone"))
 
 		startActivity(call)
 	}
 
-	private fun viewData(user: User) {
-		nameView.text = user.name
-		phoneView.text = user.phone
+	private fun sendSMS() {
+		val message = Intent(this@ContactView, MessagesView::class.java)
 
-		if (user.avatar != "null") {
-			imageView.setImageURI(Uri.parse(user.avatar))
+		message.putExtra("id", id)
+		message.putExtra("name", name)
+		message.putExtra("phone", phone)
+		message.putExtra("avatar", avatar)
+		startActivity(message)
+	}
+
+	private fun viewData() {
+		nameView.text = name
+		phoneView.text = phone
+
+		if (avatar != null && avatar != "null") {
+			imageView.setImageURI(Uri.parse(avatar))
 		}
 	}
 
@@ -83,12 +107,36 @@ class ContactView : AppCompatActivity() {
 			if (checkSelfPermission(Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_DENIED) {
 				val permissions = arrayOf(Manifest.permission.CALL_PHONE)
 
-				requestPermissions(permissions, PERMISSION_CODE)
+				requestPermissions(permissions, CALL_PHONE_CODE)
 			} else {
-				makeCall(user!!.phone)
+				makeCall()
 			}
 		} else {
-			makeCall(user!!.phone)
+			makeCall()
+		}
+	}
+
+	private fun hasPermissions(permissions: Array<String>): Boolean {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+			for (permission in permissions) {
+				if (checkSelfPermission(permission) != PackageManager.PERMISSION_GRANTED) {
+					return false
+				}
+			}
+		}
+
+		return true
+	}
+
+	private fun accessSMSPermissions() {
+		if(!hasPermissions(perm)){
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+				requestPermissions(perm, SMS_CODE)
+			} else {
+				sendSMS()
+			}
+		} else {
+			sendSMS()
 		}
 	}
 }

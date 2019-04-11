@@ -18,5 +18,6 @@
 		android:paddingTop="5sp"
 		android:paddingBottom="5sp"
 		android:footerDividersEnabled="true"
-		android:headerDividersEnabled="true" />
+		android:headerDividersEnabled="true"
+		tools:ignore="MissingConstraints" />
 </android.support.constraint.ConstraintLayout>

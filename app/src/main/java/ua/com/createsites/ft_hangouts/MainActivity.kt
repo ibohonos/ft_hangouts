@@ -1,7 +1,7 @@
 package ua.com.createsites.ft_hangouts
 
 import ua.com.createsites.ft_hangouts.Adapter.ListUserAdapter
-import ua.com.createsites.ft_hangouts.DBHelper.DBHelper
+import ua.com.createsites.ft_hangouts.DBHelper.UserDBHelper
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import ua.com.createsites.ft_hangouts.Models.User
@@ -13,7 +13,7 @@ import android.view.Menu
 
 class MainActivity : AppCompatActivity() {
 
-	private lateinit var db: DBHelper
+	private lateinit var userDb: UserDBHelper
 	private var listUsers: List<User> = ArrayList<User>()
 
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,13 +23,13 @@ class MainActivity : AppCompatActivity() {
 
 		addNew.setOnClickListener { newContact() }
 
-		db = DBHelper(this)
+		userDb = UserDBHelper(this)
 
 		refreshData()
 	}
 
 	private fun refreshData() {
-		listUsers = db.allUser
+		listUsers = userDb.allUser
 
 		val adapter = ListUserAdapter(this@MainActivity, listUsers)
 
@@ -42,8 +42,19 @@ class MainActivity : AppCompatActivity() {
 
 	private fun viewContact(position: Int) {
 		val win = Intent(this@MainActivity, ContactView::class.java)
+		val user = listUsers[position]
+		var tel: String = ""
 
-		win.putExtra("position", position)
+		if (user.phone.count() == 9) {
+			tel = "+380${user.phone}"
+		} else if (user.phone.count() == 12) {
+			tel = "+${user.phone}"
+		}
+
+		win.putExtra("id", user.id)
+		win.putExtra("name", user.name)
+		win.putExtra("phone", tel)
+		win.putExtra("avatar", user.avatar)
 		startActivity(win)
 	}
 

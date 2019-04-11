@@ -10,4 +10,6 @@
 	<string name="call">Позвонить</string>
 	<string name="send_sms">Отправить СМС</string>
 	<string name="profile">Профиль</string>
+	<string name="user_image">Изображения пользователя</string>
+	<string name="write_message">Напишите сообщение</string>
 </resources>

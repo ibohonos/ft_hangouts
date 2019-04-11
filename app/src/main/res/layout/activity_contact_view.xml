@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<ScrollView
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/scrollUserView"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	android:scrollbarStyle="insideOverlay"
+	app:layout_constraintEnd_toEndOf="parent"
+	tools:layout_editor_absoluteY="0dp"
 	tools:context=".ContactView">
 
 	<LinearLayout
@@ -12,104 +16,97 @@
 		android:layout_height="wrap_content"
 		android:orientation="vertical">
 
-		<ScrollView
-			android:id="@+id/scrollUserView"
+		<ImageView
+			android:id="@+id/imageView"
 			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:scrollbarStyle="insideOverlay"
+			android:layout_height="350sp"
+			android:background="@android:color/darker_gray"
+			android:contentDescription="@string/picture"
 			app:layout_constraintEnd_toEndOf="parent"
-			tools:layout_editor_absoluteY="0dp">
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:srcCompat="@drawable/ic_perm_identity_white_150dp" />
 
-			<LinearLayout
-				android:layout_width="match_parent"
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="10sp"
+			android:layout_marginTop="20sp"
+			android:layout_marginEnd="10sp"
+			android:layout_marginBottom="20sp"
+			android:orientation="horizontal"
+			android:weightSum="4">
+
+			<Button
+				android:id="@+id/callContact"
+				style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+				android:layout_width="0dp"
 				android:layout_height="wrap_content"
-				android:orientation="vertical">
+				android:layout_weight="1"
+				android:background="@drawable/ic_call_black_24dp"
+				android:backgroundTint="@color/colorPrimaryDark"
+				android:padding="30sp" />
 
-				<ImageView
-					android:id="@+id/imageView"
-					android:layout_width="match_parent"
-					android:layout_height="350sp"
-					android:background="@android:color/darker_gray"
-					android:contentDescription="@string/picture"
-					app:layout_constraintEnd_toEndOf="parent"
-					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toTopOf="parent"
-					app:srcCompat="@drawable/ic_perm_identity_white_150dp" />
+			<Button
+				android:id="@+id/smsContact"
+				style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:background="@drawable/ic_sms_black_24dp"
+				android:backgroundTint="@color/colorGreen"
+				android:padding="30sp" />
 
-				<TextView
-					android:id="@+id/nameView"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_marginEnd="8dp"
-					android:layout_marginStart="8dp"
-					android:layout_marginTop="8dp"
-					android:text="@string/name"
-					android:textSize="35sp"
-					app:layout_constraintEnd_toEndOf="parent"
-					app:layout_constraintHorizontal_bias="0.0"
-					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toBottomOf="@+id/imageView" />
+			<Button
+				android:id="@+id/editContact"
+				style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+				android:layout_width="0sp"
+				android:layout_height="wrap_content"
+				android:padding="30sp"
+				android:layout_weight="1"
+				android:background="@drawable/ic_create_black_24dp"
+				android:backgroundTint="@color/colorOrange" />
 
-				<TextView
-					android:id="@+id/phoneView"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_marginEnd="8dp"
-					android:layout_marginStart="8dp"
-					android:layout_marginTop="8dp"
-					android:text="@string/phone"
-					android:textSize="25sp"
-					app:layout_constraintEnd_toEndOf="parent"
-					app:layout_constraintHorizontal_bias="0.0"
-					app:layout_constraintStart_toStartOf="parent"
-					app:layout_constraintTop_toBottomOf="@+id/nameView" />
+			<Button
+				android:id="@+id/deleteContact"
+				style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+				android:layout_width="0sp"
+				android:layout_height="wrap_content"
+				android:padding="30sp"
+				android:layout_weight="1"
+				android:background="@drawable/ic_delete_black_24dp"
+				android:backgroundTint="@color/colorRed" />
 
-				<LinearLayout
-					android:orientation="horizontal"
-					android:weightSum="2"
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:layout_marginStart="10sp"
-					android:layout_marginEnd="10sp"
-					android:layout_marginTop="20sp"
-					android:layout_marginBottom="20sp">
+		</LinearLayout>
 
-					<Button
-						android:id="@+id/callContact"
-						style="@style/Widget.AppCompat.Button.Colored"
-						android:layout_width="0dp"
-						android:layout_weight="1"
-						android:layout_height="wrap_content"
-						android:padding="10sp"
-						android:background="@color/colorPrimaryDark"
-						android:text="@string/call"
-						android:textAlignment="center"
-						android:textAllCaps="false"
-						android:textColor="@android:color/white"
-						android:textSize="18sp"
-						android:textStyle="bold" />
+		<TextView
+			android:id="@+id/nameView"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="8dp"
+			android:layout_marginTop="8dp"
+			android:layout_marginEnd="8dp"
+			android:text="@string/name"
+			android:textSize="35sp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.0"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
-					<Button
-						android:id="@+id/smsContact"
-						style="@style/Widget.AppCompat.Button.Colored"
-						android:layout_width="0dp"
-						android:layout_weight="1"
-						android:layout_height="wrap_content"
-						android:padding="10sp"
-						android:background="@color/colorGreen"
-						android:text="@string/send_sms"
-						android:textAlignment="center"
-						android:textAllCaps="false"
-						android:textColor="@android:color/white"
-						android:textSize="18sp"
-						android:textStyle="bold" />
-
-				</LinearLayout>
-
-			</LinearLayout>
-
-		</ScrollView>
+		<TextView
+			android:id="@+id/phoneView"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_marginStart="8dp"
+			android:layout_marginTop="8dp"
+			android:layout_marginEnd="8dp"
+			android:text="@string/phone"
+			android:textSize="25sp"
+			app:layout_constraintEnd_toEndOf="parent"
+			app:layout_constraintHorizontal_bias="0.0"
+			app:layout_constraintStart_toStartOf="parent"
+			app:layout_constraintTop_toBottomOf="@+id/nameView" />
 
 	</LinearLayout>
 
-</android.support.constraint.ConstraintLayout>
+</ScrollView>

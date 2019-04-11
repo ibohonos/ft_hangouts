@@ -1,7 +1,7 @@
 package ua.com.createsites.ft_hangouts
 
 import kotlinx.android.synthetic.main.activity_create_contact.*
-import ua.com.createsites.ft_hangouts.DBHelper.DBHelper
+import ua.com.createsites.ft_hangouts.DBHelper.UserDBHelper
 import ua.com.createsites.ft_hangouts.Models.User
 import android.support.v7.app.AppCompatActivity
 import android.graphics.drawable.BitmapDrawable
@@ -27,12 +27,12 @@ class CreateContact : AppCompatActivity() {
 		private const val PERMISSION_CODE = 1001
 	}
 
-	private lateinit var db: DBHelper
+	private lateinit var userDb: UserDBHelper
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_create_contact)
-		db = DBHelper(this)
+		userDb = UserDBHelper(this)
 
 		supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
@@ -89,7 +89,7 @@ class CreateContact : AppCompatActivity() {
 				image.toString()
 		)
 
-		db.addUser(user)
+		userDb.addUser(user)
 		finish()
 	}
 

@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.content.ContentValues
 import android.content.Context
 
-class DBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VER) {
+class UserDBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VER) {
 	companion object {
 		private const val DATABASE_VER = 1
 		private const val DATABASE_NAME = "ft_hangouts.db"

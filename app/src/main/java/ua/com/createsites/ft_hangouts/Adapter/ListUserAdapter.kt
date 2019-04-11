@@ -20,6 +20,13 @@ class ListUserAdapter(activity: Activity, private val listUser: List<User>): Bas
 	override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 		val rowView: View  = inflater.inflate(R.layout.contact_list, null)
 		val avatarUrl = listUser[position].avatar
+		var tel: String = ""
+
+		if (listUser[position].phone.count() == 9) {
+			tel = "+380${listUser[position].phone}"
+		} else if (listUser[position].phone.count() == 12) {
+			tel = "+${listUser[position].phone}"
+		}
 
 		if (avatarUrl != "null") {
 			rowView.ava.setImageURI(Uri.parse(avatarUrl))
@@ -28,12 +35,12 @@ class ListUserAdapter(activity: Activity, private val listUser: List<User>): Bas
 		}
 
 		rowView.name.text = listUser[position].name
-		rowView.phone.text = listUser[position].phone
+		rowView.phone.text = tel
 
 		return rowView
 	}
 
-	override fun getItem(position: Int): Any {
+	override fun getItem(position: Int): User {
 		return listUser[position]
 	}
 
