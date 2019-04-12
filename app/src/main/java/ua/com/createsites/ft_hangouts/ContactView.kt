@@ -86,10 +86,8 @@ class ContactView : AppCompatActivity() {
 	private fun sendSMS() {
 		val message = Intent(this@ContactView, MessagesView::class.java)
 
-		message.putExtra("id", id)
 		message.putExtra("name", name)
 		message.putExtra("phone", phone)
-		message.putExtra("avatar", avatar)
 		startActivity(message)
 	}
 

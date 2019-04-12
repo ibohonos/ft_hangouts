@@ -1,38 +1,45 @@
 package ua.com.createsites.ft_hangouts.Adapter
 
-import kotlinx.android.synthetic.main.item_text_message.view.*
+import ua.com.createsites.ft_hangouts.Holder.ViewMessagesHolder
 import ua.com.createsites.ft_hangouts.DBHelper.SmsData
+import android.support.v4.content.ContextCompat
+import android.support.v7.widget.RecyclerView
 import ua.com.createsites.ft_hangouts.R
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
-import android.widget.BaseAdapter
-import android.content.Context
+import android.widget.FrameLayout
 import android.view.ViewGroup
+import android.graphics.Color
 import android.app.Activity
-import android.view.View
+import android.view.Gravity
 
-class ListMessagesAdapter(activity: Activity, val smsList: ArrayList<SmsData>): BaseAdapter() {
-	private var inflater: LayoutInflater = activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+class ListMessagesAdapter(val activity: Activity, val smsList: ArrayList<SmsData>): RecyclerView.Adapter<ViewMessagesHolder>() {
 
-	@SuppressLint("ViewHolder", "InflateParams")
-	override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-		val rowView: View  = inflater.inflate(R.layout.item_text_message, null)
-
-		rowView.message_text_wrap.text = smsList[position].message
-		rowView.message_text_time.text = smsList[position].date
-
-		return rowView
+	override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewMessagesHolder {
+		return ViewMessagesHolder(LayoutInflater.from(activity).inflate(R.layout.item_text_message, parent, false))
 	}
 
-	override fun getItem(position: Int): SmsData{
-		return smsList[position]
-	}
-
-	override fun getItemId(position: Int): Long {
-		return position.toLong()
-	}
-
-	override fun getCount(): Int {
+	override fun getItemCount(): Int {
 		return smsList.size
+	}
+
+	override fun onBindViewHolder(holder: ViewMessagesHolder, position: Int) {
+		holder.message_text_wrap.text = smsList[position].message
+		holder.message_text_time.text = smsList[position].date
+
+		if (smsList[position].type == 1) {
+			val params = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT, Gravity.START)
+
+			holder.message_root.layoutParams = params
+			holder.message_text_wrap.setTextColor(Color.WHITE)
+			holder.message_text_time.setTextColor(Color.WHITE)
+			holder.message_root.background = ContextCompat.getDrawable(activity, R.drawable.rect_round_primary_color)
+		} else {
+			val params = FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.WRAP_CONTENT, Gravity.END)
+
+			holder.message_root.layoutParams = params
+			holder.message_text_wrap.setTextColor(Color.BLACK)
+			holder.message_text_time.setTextColor(Color.BLACK)
+			holder.message_root.background = ContextCompat.getDrawable(activity, R.drawable.rect_round_white)
+		}
 	}
 }
