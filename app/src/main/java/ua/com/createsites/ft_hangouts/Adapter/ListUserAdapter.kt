@@ -20,15 +20,18 @@ class ListUserAdapter(activity: Activity, private val listUser: List<User>): Bas
 	override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
 		val rowView: View  = inflater.inflate(R.layout.contact_list, null)
 		val avatarUrl = listUser[position].avatar
-		var tel: String = ""
 
-		if (listUser[position].phone.count() == 9) {
-			tel = "+380${listUser[position].phone}"
-		} else if (listUser[position].phone.count() == 12) {
-			tel = "+${listUser[position].phone}"
+		val tel: String = when {
+			listUser[position].phone.count() == 9 -> "+380${listUser[position].phone}"
+			listUser[position].phone.count() == 12 ->
+				(when {
+					listUser[position].phone.take(1) != "+" -> "+${listUser[position].phone}"
+					else -> listUser[position].phone
+				}).toString()
+			else -> listUser[position].phone
 		}
 
-		if (avatarUrl != "null") {
+		if (avatarUrl != null && avatarUrl != "null") {
 			rowView.ava.setImageURI(Uri.parse(avatarUrl))
 		} else {
 			rowView.ava.setImageResource(R.drawable.ic_perm_identity_white_150dp)

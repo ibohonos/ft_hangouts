@@ -35,20 +35,23 @@ class MainActivity : AppCompatActivity() {
 
 		contacts.adapter = adapter
 
-		contacts.setOnItemClickListener { _, _, position, _ ->
-			viewContact(position)
+		contacts.setOnItemClickListener {
+			_, _, position, _ -> viewContact(position)
 		}
 	}
 
 	private fun viewContact(position: Int) {
 		val win = Intent(this@MainActivity, ContactView::class.java)
-		val user = listUsers[position]
-		var tel: String = ""
+		val user: User = listUsers[position]
 
-		if (user.phone.count() == 9) {
-			tel = "+380${user.phone}"
-		} else if (user.phone.count() == 12) {
-			tel = "+${user.phone}"
+		val tel: String = when {
+			user.phone.count() == 9 -> "+380${user.phone}"
+			user.phone.count() == 12 ->
+				(when {
+					user.phone.take(1) != "+" -> "+${user.phone}"
+					else -> user.phone
+				}).toString()
+			else -> user.phone
 		}
 
 		win.putExtra("id", user.id)

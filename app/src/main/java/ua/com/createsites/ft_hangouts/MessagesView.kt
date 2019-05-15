@@ -5,6 +5,7 @@ import ua.com.createsites.ft_hangouts.DBHelper.SmsData
 import kotlinx.android.synthetic.main.messages_view.*
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.RecyclerView
 import android.telephony.SmsManager
 import android.view.MenuItem
 import android.widget.Toast
@@ -51,6 +52,7 @@ class MessagesView: AppCompatActivity() {
 		val adapter = ListMessagesAdapter(this@MessagesView, smsList)
 		recycler_view_messages.layoutManager = LinearLayoutManager(this@MessagesView)
 		recycler_view_messages.adapter = adapter
+		recycler_view_messages.scrollToPosition(recycler_view_messages.adapter.itemCount - 1)
 	}
 
 	private fun sendMessage() {
@@ -60,6 +62,7 @@ class MessagesView: AppCompatActivity() {
 		smsMan.sendTextMessage(phone, null, mess.toString(), null, null)
 		Toast.makeText(this@MessagesView, "SMS Sended!", Toast.LENGTH_LONG).show()
 		mess.clear()
+		Thread.sleep(10)
 		setSmsMessages()
 	}
 
@@ -70,5 +73,10 @@ class MessagesView: AppCompatActivity() {
 		} else {
 			super.onOptionsItemSelected(item)
 		}
+	}
+
+	override fun onResume() {
+		setSmsMessages()
+		super.onResume()
 	}
 }

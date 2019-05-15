@@ -22,7 +22,7 @@ class UserDBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
 		val createTableQuery = ("CREATE TABLE IF NOT EXISTS `$TABLE_NAME` (" +
 				"`$COL_ID` INTEGER PRIMARY KEY AUTOINCREMENT, " +
 				"`$COL_NAME` VARCHAR(255), " +
-				"`$COL_PHONE` INTEGER, " +
+				"`$COL_PHONE` VARCHAR(255), " +
 				"`$COL_AVATAR` VARCHAR(255) NULL DEFAULT NULL);")
 
 		db!!.execSQL(createTableQuery)
