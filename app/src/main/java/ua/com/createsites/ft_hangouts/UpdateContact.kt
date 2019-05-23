@@ -1,6 +1,6 @@
 package ua.com.createsites.ft_hangouts
 
-import kotlinx.android.synthetic.main.activity_create_contact.*
+import kotlinx.android.synthetic.main.activity_update_contact.*
 import ua.com.createsites.ft_hangouts.DBHelper.UserDBHelper
 import ua.com.createsites.ft_hangouts.Models.User
 import android.support.v7.app.AppCompatActivity
@@ -16,11 +16,12 @@ import android.widget.Toast
 import java.io.IOException
 import android.os.Bundle
 import android.Manifest
+import android.net.Uri
 import android.os.Build
 import java.io.File
 
 
-class CreateContact : AppCompatActivity() {
+class UpdateContact : AppCompatActivity() {
 
 	companion object {
 		private const val IMAGE_PICK_CODE = 1000
@@ -29,15 +30,34 @@ class CreateContact : AppCompatActivity() {
 
 	private lateinit var userDb: UserDBHelper
 
+	private var id: Int = 0
+	private lateinit var name: String
+	private lateinit var phone: String
+	private var avatar: String? = null
+
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.activity_create_contact)
+		setContentView(R.layout.activity_update_contact)
 		userDb = UserDBHelper(this)
 
 		supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+		id = intent.getIntExtra("id", 0)
+		name = intent.getStringExtra("name")
+		phone = intent.getStringExtra("phone")
+		avatar = intent.getStringExtra("avatar")
+
+		this.title = getString(R.string.update_contact) + " $name"
+
+		if (avatar != null && avatar != "null") {
+			userImage.setImageURI(Uri.parse(avatar))
+		}
+		nameInput.setText(name)
+		phoneInput.setText(phone)
 		userImage.setOnClickListener { accessReadPermissions() }
 		saveContact.setOnClickListener { accessWritePermissions() }
+		updateImage.setOnClickListener { editAvatar() }
+		deleteImage.setOnClickListener { deleteAvatar() }
 	}
 
 	private fun accessReadPermissions() {
@@ -74,22 +94,34 @@ class CreateContact : AppCompatActivity() {
 		startActivityForResult(intent, IMAGE_PICK_CODE)
 	}
 
-	private fun saveData() {
+	private fun editAvatar() {
 		val draw = userImage.drawable as? BitmapDrawable
-		var image: String? = null
+		val image: String?
 
 		if (draw != null) {
 			image = saveImageToStorage(draw)
+			avatar = image
+			Toast.makeText(this, getString(R.string.avatar_updated), Toast.LENGTH_LONG).show()
+		} else {
+			Toast.makeText(this, getString(R.string.first_select_image), Toast.LENGTH_LONG).show()
 		}
+	}
 
+	private fun deleteAvatar() {
+		avatar = null
+		userImage.setImageResource(R.drawable.ic_perm_identity_white_150dp)
+		Toast.makeText(this, getString(R.string.avatar_deleted), Toast.LENGTH_LONG).show()
+	}
+
+	private fun saveData() {
 		val user = User(
-				null,
+				id,
 				nameInput.text.toString(),
 				phoneInput.text.toString(),
-				image.toString()
+				avatar.toString()
 		)
 
-		userDb.addUser(user)
+		userDb.updateUser(user)
 		finish()
 	}
 

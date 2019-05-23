@@ -1,7 +1,7 @@
 package ua.com.createsites.ft_hangouts.Adapter
 
 import ua.com.createsites.ft_hangouts.Holder.ViewMessagesHolder
-import ua.com.createsites.ft_hangouts.DBHelper.SmsData
+import ua.com.createsites.ft_hangouts.Models.SmsData
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import ua.com.createsites.ft_hangouts.R

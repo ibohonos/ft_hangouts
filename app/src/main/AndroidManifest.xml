@@ -36,8 +36,12 @@
 			android:label="@string/add_contact" />
 
 		<activity
+			android:name=".UpdateContact"
+			android:label="@string/update_contact" />
+
+		<activity
 			android:name=".MessagesView"
-			android:label="Messages" />
+			android:label="@string/messages" />
 
 		<activity
 			android:name=".ContactView"

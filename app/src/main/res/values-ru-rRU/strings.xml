@@ -12,4 +12,13 @@
 	<string name="profile">Профиль</string>
 	<string name="user_image">Изображения пользователя</string>
 	<string name="write_message">Напишите сообщение</string>
+	<string name="messages">Сообщения</string>
+	<string name="update_contact">Обновить контакт</string>
+	<string name="perm_den">Нет прав!</string>
+	<string name="avatar_deleted">Аватар удалено! Пожалуйста, сохраните контакт.</string>
+	<string name="avatar_updated">Новый аватар сохранен! Пожалуйста, сохраните контакт.</string>
+	<string name="first_select_image">Сначала выберете изображение!</string>
+	<string name="user_deleted">Пользователь удален!</string>
+	<string name="mess_to">Сообщения с</string>
+	<string name="sms_sended">SMS отправлено!</string>
 </resources>

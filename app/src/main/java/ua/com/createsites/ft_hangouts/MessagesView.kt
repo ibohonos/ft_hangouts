@@ -1,11 +1,10 @@
 package ua.com.createsites.ft_hangouts
 
 import ua.com.createsites.ft_hangouts.Adapter.ListMessagesAdapter
-import ua.com.createsites.ft_hangouts.DBHelper.SmsData
+import ua.com.createsites.ft_hangouts.Models.SmsData
 import kotlinx.android.synthetic.main.messages_view.*
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.RecyclerView
 import android.telephony.SmsManager
 import android.view.MenuItem
 import android.widget.Toast
@@ -27,7 +26,7 @@ class MessagesView: AppCompatActivity() {
 		phone = intent.getStringExtra("phone")
 
 		imageSend.setOnClickListener { sendMessage() }
-		this.title = "Message to $name"
+		this.title = getString(R.string.mess_to) + " $name"
 
 		setSmsMessages()
 	}
@@ -60,7 +59,7 @@ class MessagesView: AppCompatActivity() {
 		val smsMan = SmsManager.getDefault()
 
 		smsMan.sendTextMessage(phone, null, mess.toString(), null, null)
-		Toast.makeText(this@MessagesView, "SMS Sended!", Toast.LENGTH_LONG).show()
+		Toast.makeText(this@MessagesView, getString(R.string.sms_sended), Toast.LENGTH_LONG).show()
 		mess.clear()
 		Thread.sleep(10)
 		setSmsMessages()

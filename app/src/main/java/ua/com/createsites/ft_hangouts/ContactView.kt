@@ -1,6 +1,8 @@
 package ua.com.createsites.ft_hangouts
 
 import kotlinx.android.synthetic.main.activity_contact_view.*
+import ua.com.createsites.ft_hangouts.DBHelper.UserDBHelper
+import ua.com.createsites.ft_hangouts.Models.User
 import android.support.v7.app.AppCompatActivity
 import android.content.pm.PackageManager
 import android.annotation.SuppressLint
@@ -45,6 +47,8 @@ class ContactView : AppCompatActivity() {
 
 		callContact.setOnClickListener { accessCallPermissions() }
 		smsContact.setOnClickListener { accessSMSPermissions() }
+		editContact.setOnClickListener { editContact() }
+		deleteContact.setOnClickListener { deleteContact() }
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -62,7 +66,7 @@ class ContactView : AppCompatActivity() {
 				if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 					makeCall()
 				} else {
-					Toast.makeText(this, "Permissions denied", Toast.LENGTH_SHORT).show()
+					Toast.makeText(this, getString(R.string.perm_den), Toast.LENGTH_SHORT).show()
 				}
 			}
 
@@ -70,7 +74,7 @@ class ContactView : AppCompatActivity() {
 				if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 					sendSMS()
 				} else {
-					Toast.makeText(this, "Permissions denied", Toast.LENGTH_SHORT).show()
+					Toast.makeText(this, getString(R.string.perm_den), Toast.LENGTH_SHORT).show()
 				}
 			}
 		}
@@ -91,12 +95,42 @@ class ContactView : AppCompatActivity() {
 		startActivity(message)
 	}
 
+	private fun editContact() {
+		val win = Intent(this@ContactView, UpdateContact::class.java)
+
+		win.putExtra("id", id)
+		win.putExtra("name", name)
+		win.putExtra("phone", phone)
+		win.putExtra("avatar", avatar)
+		startActivity(win)
+	}
+
+	private fun deleteContact() {
+		val user = User(id, name, phone, avatar)
+		val db = UserDBHelper(this)
+		db.deleteUser(user)
+		Toast.makeText(this, getString(R.string.user_deleted), Toast.LENGTH_SHORT).show()
+		finish()
+	}
+
+	private fun updateData() {
+		val userDb = UserDBHelper(this)
+		val user = userDb.findUser(id)
+
+		name = user!!.name
+		phone = user.phone
+		avatar = user.avatar
+		viewData()
+	}
+
 	private fun viewData() {
 		nameView.text = name
 		phoneView.text = phone
 
 		if (avatar != null && avatar != "null") {
 			imageView.setImageURI(Uri.parse(avatar))
+		} else {
+			imageView.setImageResource(R.drawable.ic_perm_identity_white_150dp)
 		}
 	}
 
@@ -136,5 +170,10 @@ class ContactView : AppCompatActivity() {
 		} else {
 			sendSMS()
 		}
+	}
+
+	override fun onResume() {
+		updateData()
+		super.onResume()
 	}
 }

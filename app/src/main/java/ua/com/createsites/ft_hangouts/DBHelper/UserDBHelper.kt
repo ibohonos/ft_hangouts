@@ -94,4 +94,25 @@ class UserDBHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, n
 
 		return status
 	}
+
+	fun findUser(id: Int): User?
+	{
+		val selectQuery = "SELECT * FROM `$TABLE_NAME` WHERE id=$id"
+		val db = this.writableDatabase
+		val cursor = db.rawQuery(selectQuery, null)
+		var user: User? = null
+
+		while (cursor.moveToNext()) {
+			val name = cursor.getString(cursor.getColumnIndex(COL_NAME))
+			val phone = cursor.getString(cursor.getColumnIndex(COL_PHONE))
+			val avatar = cursor.getString(cursor.getColumnIndex(COL_AVATAR))
+
+			user = User(id, name, phone, avatar)
+		}
+
+		cursor.close()
+		db.close()
+
+		return user
+	}
 }
