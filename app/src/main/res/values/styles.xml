@@ -8,6 +8,30 @@
 		<item name="colorAccent">@color/colorAccent</item>
 	</style>
 
+	<style name="AppTheme.Indigo" parent="Theme.AppCompat.Light">
+		<item name="colorPrimary">@color/indigo</item>
+		<item name="colorPrimaryDark">@color/indigoDark</item>
+		<item name="colorAccent">@color/indigoAccent</item>
+	</style>
+
+	<style name="AppTheme.Dark" parent="Theme.AppCompat">
+		<item name="colorPrimary">@color/newColorPrimary</item>
+		<item name="colorPrimaryDark">@color/newColorPrimaryDark</item>
+		<item name="colorAccent">@color/newColorAccent</item>
+	</style>
+
+	<style name="AppTheme.Pink" parent="Theme.AppCompat.Light.DarkActionBar">
+		<item name="colorPrimary">@color/pink</item>
+		<item name="colorPrimaryDark">@color/pinkDark</item>
+		<item name="colorAccent">@color/pinkAccent</item>
+	</style>
+
+	<style name="AppTheme.NoActionBar.Dark" parent="Theme.AppCompat.NoActionBar">
+		<item name="android:colorPrimary">@color/newColorPrimary</item>
+		<item name="android:colorPrimaryDark">@color/newColorPrimaryDark</item>
+		<item name="android:colorAccent">@color/newColorAccent</item>
+	</style>
+
 	<style name="AppTheme.NoActionBar">
 		<item name="windowActionBar">false</item>
 		<item name="windowNoTitle">true</item>

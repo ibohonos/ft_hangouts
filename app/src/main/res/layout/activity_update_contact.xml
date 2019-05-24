@@ -128,7 +128,6 @@
 					android:layout_marginStart="8dp"
 					android:layout_marginTop="16dp"
 					android:layout_marginBottom="32dp"
-					android:background="@color/colorPrimaryDark"
 					android:text="@string/save_contact"
 					android:textAlignment="center"
 					android:textAllCaps="false"

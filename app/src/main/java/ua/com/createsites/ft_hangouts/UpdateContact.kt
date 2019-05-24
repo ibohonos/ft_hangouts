@@ -3,7 +3,6 @@ package ua.com.createsites.ft_hangouts
 import kotlinx.android.synthetic.main.activity_update_contact.*
 import ua.com.createsites.ft_hangouts.DBHelper.UserDBHelper
 import ua.com.createsites.ft_hangouts.Models.User
-import android.support.v7.app.AppCompatActivity
 import android.graphics.drawable.BitmapDrawable
 import android.content.pm.PackageManager
 import java.io.FileOutputStream
@@ -21,7 +20,7 @@ import android.os.Build
 import java.io.File
 
 
-class UpdateContact : AppCompatActivity() {
+class UpdateContact : BaseActivity() {
 
 	companion object {
 		private const val IMAGE_PICK_CODE = 1000

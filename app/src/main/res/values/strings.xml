@@ -20,4 +20,10 @@
 	<string name="user_deleted">User deleted!</string>
 	<string name="mess_to">Message to</string>
 	<string name="sms_sended">SMS Sended!</string>
+	<string name="def_theme">Default theme</string>
+	<string name="dark_theme">Dark theme</string>
+	<string name="theme_choose">Choose theme</string>
+	<string name="theme_choose_summ">Choose color theme</string>
+	<string name="pink_theme">Pink theme</string>
+	<string name="indigo_theme">Indigo theme</string>
 </resources>

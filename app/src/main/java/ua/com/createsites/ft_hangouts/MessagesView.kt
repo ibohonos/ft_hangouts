@@ -10,9 +10,10 @@ import android.view.MenuItem
 import android.widget.Toast
 import android.os.Bundle
 import android.net.Uri
+import android.preference.PreferenceManager
 import java.util.Date
 
-class MessagesView: AppCompatActivity() {
+class MessagesView: BaseActivity() {
 
 	private lateinit var name: String
 	private lateinit var phone: String

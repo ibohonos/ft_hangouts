@@ -17,10 +17,11 @@ import java.io.IOException
 import android.os.Bundle
 import android.Manifest
 import android.os.Build
+import android.preference.PreferenceManager
 import java.io.File
 
 
-class CreateContact : AppCompatActivity() {
+class CreateContact : BaseActivity() {
 
 	companion object {
 		private const val IMAGE_PICK_CODE = 1000

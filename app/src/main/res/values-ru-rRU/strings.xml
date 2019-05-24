@@ -21,4 +21,10 @@
 	<string name="user_deleted">Пользователь удален!</string>
 	<string name="mess_to">Сообщения с</string>
 	<string name="sms_sended">SMS отправлено!</string>
+	<string name="def_theme">Дефолтная тема</string>
+	<string name="dark_theme">Черная тема</string>
+	<string name="theme_choose">Выберете тему</string>
+	<string name="theme_choose_summ">Выберете цвет темы</string>
+	<string name="pink_theme">Розовая тема</string>
+	<string name="indigo_theme">Тема индиго</string>
 </resources>

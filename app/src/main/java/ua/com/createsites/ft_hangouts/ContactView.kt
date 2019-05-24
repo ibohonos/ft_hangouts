@@ -14,7 +14,7 @@ import android.os.Build
 import android.Manifest
 import android.net.Uri
 
-class ContactView : AppCompatActivity() {
+class ContactView : BaseActivity() {
 
 	companion object {
 		private const val CALL_PHONE_CODE = 1001

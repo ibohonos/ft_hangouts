@@ -10,8 +10,9 @@ import android.content.Intent
 import android.view.MenuItem
 import android.os.Bundle
 import android.view.Menu
+import android.preference.PreferenceManager
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
 	private lateinit var userDb: UserDBHelper
 	private var listUsers: List<User> = ArrayList<User>()
@@ -19,7 +20,6 @@ class MainActivity : AppCompatActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
-		setSupportActionBar(toolbar)
 
 		addNew.setOnClickListener { newContact() }
 
@@ -72,9 +72,15 @@ class MainActivity : AppCompatActivity() {
 		// automatically handle clicks on the Home/Up button, so long
 		// as you specify a parent activity in AndroidManifest.xml.
 		return when (item.itemId) {
-			R.id.action_settings -> true
+			R.id.action_settings -> showSettings()
 			else -> super.onOptionsItemSelected(item)
 		}
+	}
+
+	private fun showSettings(): Boolean {
+		val win = Intent(this, SettingsView::class.java)
+		startActivity(win)
+		return true
 	}
 
 	private fun newContact() {
@@ -84,7 +90,7 @@ class MainActivity : AppCompatActivity() {
 	}
 
 	override fun onResume() {
-		super.onResume()
 		refreshData()
+		super.onResume()
 	}
 }
