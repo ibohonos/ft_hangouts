@@ -26,4 +26,5 @@
 	<string name="theme_choose_summ">Choose color theme</string>
 	<string name="pink_theme">Pink theme</string>
 	<string name="indigo_theme">Indigo theme</string>
+	<string name="background_message">Time to background: %1$d sec</string>
 </resources>

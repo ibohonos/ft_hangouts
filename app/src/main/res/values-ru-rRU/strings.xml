@@ -27,4 +27,5 @@
 	<string name="theme_choose_summ">Выберете цвет темы</string>
 	<string name="pink_theme">Розовая тема</string>
 	<string name="indigo_theme">Тема индиго</string>
+    <string name="background_message">Время в трее: %1$d сек</string>
 </resources>

@@ -5,12 +5,10 @@ import ua.com.createsites.ft_hangouts.DBHelper.UserDBHelper
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 import ua.com.createsites.ft_hangouts.Models.User
-import android.support.v7.app.AppCompatActivity
 import android.content.Intent
 import android.view.MenuItem
 import android.os.Bundle
 import android.view.Menu
-import android.preference.PreferenceManager
 
 class MainActivity : BaseActivity() {
 

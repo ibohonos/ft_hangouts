@@ -1,5 +1,7 @@
 package ua.com.createsites.ft_hangouts
 
+import android.arch.lifecycle.Lifecycle
+import android.arch.lifecycle.OnLifecycleEvent
 import android.content.SharedPreferences
 import android.support.v7.app.AppCompatActivity
 import android.preference.PreferenceManager
